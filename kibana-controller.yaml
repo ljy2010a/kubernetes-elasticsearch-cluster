@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: default
+  labels:
+    component: elk
+    role: kibana
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        component: elk
+        role: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:latest
+        env:
+          - name: "ELASTICSEARCH_URL"
+            value: "http://elasticsearch:9200"
+        ports:
+        - containerPort: 5601
+          name: http
+          protocol: TCP
