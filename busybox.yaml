@@ -11,4 +11,16 @@ spec:
       - "3600"
     imagePullPolicy: IfNotPresent
     name: busybox
+    volumeMounts:
+    - name: host
+      mountPath: /data
+    - name: pods
+      mountPath: /pods
   restartPolicy: Always
+  volumes:
+  - name: "host"
+    hostPath:
+      path: /var/lib/docker/containers
+  - name: "pods"
+    hostPath:
+      path: /var/lib/kubelet
